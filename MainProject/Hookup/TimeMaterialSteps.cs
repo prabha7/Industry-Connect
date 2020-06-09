@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using MainProject.Base_Class;
+using MainProject.Drivers;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using TechTalk.SpecFlow;
@@ -6,23 +8,20 @@ using TechTalk.SpecFlow;
 namespace MainProject.Hookup
 {
     [Binding]
-    public class TimeMaterialSteps
-    {
-        IWebDriver driver;
+    public class TimeMaterialSteps : CommonDrivers
+    {      
         [Given(@"I have logged into the Turnup portal successfully")]
         public void GivenIHaveLoggedIntoTheTurnupPortalSuccessfully()
         {
             //Basic login code
             driver = new ChromeDriver();
             //Creating instance of Login Page
-            Login loginpage = new Login(driver);
-            loginpage.LoginSuccess();
+            Login loginpage = new Login();
+            loginpage.LoginSuccess(driver);
             //Creating instance of home page
-            Home homepage = new Home(driver);
-            homepage.ClickAdministration();
-            homepage.ClickTimeAndMaterials();
-
-
+            Home homepage = new Home();
+            homepage.ClickAdministration(driver);
+            homepage.ClickTimeAndMaterials(driver);
         }
         
         [Given(@"I create a new Time and Material record")]
@@ -30,32 +29,26 @@ namespace MainProject.Hookup
         {
             
             //Creating instance of time and material
-            TimeMaterial timematerial = new TimeMaterial(driver);
+            TimeMaterial timematerial = new TimeMaterial();
             timematerial.ClickCreatenew();
             timematerial.CreateNewRecord("jack1", "jack1Desc");
-
             timematerial.ValidateNewRecord("jack1", "jack1Desc");
         }
         
         [Given(@"I edit an existing Time and Material record")]
         public void GivenIEditAnExistingTimeAndMaterialRecord()
         {
-            TimeMaterial timematerial = new TimeMaterial(driver);
+            TimeMaterial timematerial = new TimeMaterial();
             timematerial.EditNewRecord();
         }
         
-        [Given(@"I create a new Time and Material with below (.*), testdec(.*)")]
-        public void GivenICreateANewTimeAndMaterialWithBelowTestdec(string p0, String p1)
-        {
-            //Creating instance of home page
-            Home homepage = new Home(driver);
-            homepage.ClickAdministration();
-            homepage.ClickTimeAndMaterials();
+        [Given(@"I create a new Time and Material with below (.*),(.*)")]
+        public void GivenICreateANewTimeAndMaterialWithBelowTestdec(string p0, string p1)
+        {            
             //Creating instance of time and material
-            TimeMaterial timematerial = new TimeMaterial(driver);
+            TimeMaterial timematerial = new TimeMaterial();
             timematerial.ClickCreatenew();
             timematerial.CreateNewRecord(p0, p1);
-
             timematerial.ValidateNewRecord(p0, p1);
         }
         

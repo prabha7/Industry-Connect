@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using MainProject.Base_Class;
+using MainProject.Drivers;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -8,25 +10,35 @@ using TechTalk.SpecFlow.Bindings.Discovery;
 
 namespace MainProject
 {
-    internal class TimeMaterial
+    internal class TimeMaterial:CommonDrivers
     {
-        private IWebDriver driver;
+        //private IWebDriver driver;
 
-         int i=0;
+         //int i=0;
 
-        public TimeMaterial(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
+        //public TimeMaterial(IWebDriver driver)
+        //{
+        //    this.driver = driver;
+        //}
 
         internal void ClickCreatenew()
         {
-            driver.FindElement(By.XPath("//*[@id='container']/p/a")).Click();
-
+            try
+            {
+                Thread.Sleep(3000);
+                driver.FindElement(By.XPath("//*[@id='container']/p/a")).Click();
+                Console.WriteLine("Assertion Pass");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail();
+            }
+            
         }
 
         internal void NewRecord(String code, String description)
         {
+            Assert.That(driver.FindElement(By.XPath("//*[@id='container']/h2")).Text, Is.EqualTo("Time and Materials"));
             //Find Code button
             IWebElement Code = driver.FindElement(By.Id("Code"));
             Code.Clear();
@@ -98,42 +110,6 @@ namespace MainProject
 
             // logic to compare the one we wanted
             Assert.That(Code.Text, Is.EqualTo(code));
-
-            //if (Code.Text == code && testDescription == description)
-            //{
-            //    Console.WriteLine("Test Passed");
-            //    Console.WriteLine("i=" + i);
-
-            //    return;
-            //}
-
-
-            // if(find==true)
-            //{ 
-
-            //for (i = 1; i <= 10; i++)
-            //    {
-            //        var Code = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[" + i + "]/td[1]"));
-
-
-            //        var testDescription = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[" + i + "]/td[3]")).Text;
-
-            //        // logic to compare the one we wanted
-
-            //        if (Code.Text == code && testDescription == description)
-            //        {
-            //            Console.WriteLine("Test Passed");
-            //            Console.WriteLine("i=" + i);
-
-            //        return;
-            //        }
-
-            //    }
-            // }
-            //else
-            //{
-            //    Console.WriteLine("Test Failed");
-            //}
         } 
 
 
@@ -143,15 +119,11 @@ namespace MainProject
         }
 
         internal void EditNewRecord()
-        {
-            
-            Thread.Sleep(5000);
+        {      
+            Thread.Sleep(3000);
             driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span")).Click();
-          driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]")).Click();
-
-
-
-            // NewRecord("Jay", "Desc");
+            driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]")).Click();
+            Assert.That(driver.FindElement(By.XPath("//*[@id='container']/h2")).Text, Is.EqualTo("Time and Materials"));             
             IWebElement Code = driver.FindElement(By.Id("Code"));
             Code.Clear();
             Code.SendKeys("Jay");
@@ -190,13 +162,21 @@ namespace MainProject
     */
         internal void DeleteNewRecord()
         {
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span")).Click();
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]")).Click();
-            IAlert alert = driver.SwitchTo().Alert();
-            alert.Accept();
-            Console.WriteLine("Delete Successful");
+            try
+            {
+                Thread.Sleep(3000);
+                driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span")).Click();
+                Thread.Sleep(3000);
+                driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]")).Click();
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+               // Assert.Pass();
+            }
+            catch(Exception ex)
+            {
+                Assert.Fail();
+            }
+            
         }
 
     }

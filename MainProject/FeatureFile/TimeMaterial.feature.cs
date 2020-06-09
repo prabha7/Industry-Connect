@@ -157,8 +157,8 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Create multiple Time and material records")]
-        [NUnit.Framework.TestCaseAttribute("test1", "testdec1", null)]
-        [NUnit.Framework.TestCaseAttribute("test2", "testdec2", null)]
+        [NUnit.Framework.TestCaseAttribute("test1", "Desc1", null)]
+        [NUnit.Framework.TestCaseAttribute("test2", "Desc2", null)]
         public virtual void CreateMultipleTimeAndMaterialRecords(string code, string description, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -187,7 +187,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I have logged into the Turnup portal successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 18
- testRunner.And(string.Format("I create a new Time and Material with below {0}, {1}", code, description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I create a new Time and Material with below {0},{1}", code, description), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 19
  testRunner.Then("The record should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

@@ -1,0 +1,574 @@
+{
+	"info": {
+		"_postman_id": "5e49b593-242b-465c-b3b7-395e5159a5e0",
+		"name": "Swagger Pet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Pet using POST endpoint",
+			"item": [
+				{
+					"name": "Create a pet with valid path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dddf5e43-7a58-4227-93f8-dcbf9799d6c1",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify the pet name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"Name\"));\r",
+									"    \r",
+									"pm.environment.set(\"Pet_Id\", jsonData.id);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 123,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"{{Name}}\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_url}}/pet",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a pet with valid name,photo and status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ec93dc7c-f9de-493c-aff7-899876f97228",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify the pet name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"Name\"));\r",
+									"    \r",
+									"pm.environment.set(\"Pet_Id\", jsonData.id);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 123,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"{{Name}}\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_url}}/pet",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2c56131a-c590-4e7f-a2dc-984249ba557c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a2132da-8a51-43ce-8c5a-2752460ff711",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Find Pet using GET endpoint",
+			"item": [
+				{
+					"name": "Getting a single pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "56b84f17-f291-4469-ad59-b8b1651ba6b9",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify the pet id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"Pet_Id\"));\r",
+									"\r",
+									"});\r",
+									"pm.test(\"Verify the pet name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"Name\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_url}}/pet/:petId",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet",
+								":petId"
+							],
+							"variable": [
+								{
+									"key": "petId",
+									"value": "{{Pet_Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View a pet that doesn't exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b4b117e-8498-46c7-97f9-e6264e1fb923",
+								"exec": [
+									"pm.test(\"ID doesn't exist\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,402,403,404,405]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_url}}/pet/:petId",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet",
+								":petId"
+							],
+							"variable": [
+								{
+									"key": "petId",
+									"value": "345fhd4wtfbdfh"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Try to get a pet without ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a88be06-e16c-4664-adae-e36cefe328f6",
+								"exec": [
+									"pm.test(\"Please enter ID\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,402,403,404,405]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Base_url}}/pet",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5caf7742-d050-4801-8077-a4d702e708d5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "baa18844-c25e-4885-83f4-bb7cf089fecc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Update Pet using PUT endpoint",
+			"item": [
+				{
+					"name": "Update a pet with valid path and ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "162967af-56ad-4e4d-9b2c-aba614268c25",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify the pet name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"UpdatedName\"));\r",
+									"   \r",
+									"    \r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 123,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"{{UpdatedName}}\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_url}}/pet?=Pet_Id",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "Pet_Id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a pet with valid photo and status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe41f96c-c8c2-4bba-a4bf-124f1ada3136",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Verify the pet name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"UpdatedName\"));\r",
+									"   \r",
+									"    \r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 123,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"{{UpdatedName}}\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_url}}/pet?=Pet_Id",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "Pet_Id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update the deleted pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac1e0ba8-9bc5-4c32-a73a-a5d0f4bb2ca3",
+								"exec": [
+									"pm.test(\"This ID is already deleted\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,402,403,404,405]);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 123,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"{{UpdatedName}}\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Base_url}}/pet/yg6",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet",
+								"yg6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delete Pet using DELETE endpoint",
+			"item": [
+				{
+					"name": "Delete a pet which is currently present",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab3408c3-48f5-44e6-9fbf-56a17c88827a",
+								"exec": [
+									"pm.test(\"Verify the status code\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Check if the response contains the deleted post ID\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(pm.environment.get(\"Pet_Id\").toString());\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_url}}/pet/:Pet_Id",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet",
+								":Pet_Id"
+							],
+							"variable": [
+								{
+									"key": "Pet_Id",
+									"value": "{{Pet_Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a pet without ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "abe34dac-7389-4e1d-be0d-efa8fd8829d9",
+								"exec": [
+									"pm.test(\"Please enter ID\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,402,403,404,405]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_url}}/pet/",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a pet which is already deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "155e9374-0105-42f2-b41a-7a7097e5473c",
+								"exec": [
+									"pm.test(\"Already Deleted ID\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([400,401,402,403,404,405]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Base_url}}/pet/:Pet_Id",
+							"host": [
+								"{{Base_url}}"
+							],
+							"path": [
+								"pet",
+								":Pet_Id"
+							],
+							"variable": [
+								{
+									"key": "Pet_Id",
+									"value": "{{Pet_Id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "69862d0c-dd4e-456e-b1ca-0ed6819d3fec",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d47fb556-5d37-4879-b00f-39aba16de55e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

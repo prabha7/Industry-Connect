@@ -15,9 +15,9 @@ Scenario: Edit an existing Time and Material record
 
 	Scenario Outline: Create multiple Time and material records
 	Given I have logged into the Turnup portal successfully
-	And I create a new Time and Material with below <code> and <description>
+	And I create a new Time and Material with below <code>,<description>
 	Then The record should be created successfully
 	Examples:
 	| code | description |
-	| test1| testdec1    |
-	| test2| testdec2    |
+	| test1| Desc1       |
+	| test2| Desc2       |
