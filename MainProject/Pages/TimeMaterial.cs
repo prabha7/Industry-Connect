@@ -1,5 +1,6 @@
 ﻿using MainProject.Base_Class;
 using MainProject.Drivers;
+using MainProject.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -25,7 +26,8 @@ namespace MainProject
         {
             try
             {
-                Thread.Sleep(3000);
+                //Thread.Sleep(3000);
+                WaitHelpers.waitClickableElement(driver, "XPath", "//*[@id='container']/p/a");
                 driver.FindElement(By.XPath("//*[@id='container']/p/a")).Click();
                 Console.WriteLine("Assertion Pass");
             }
@@ -55,7 +57,7 @@ namespace MainProject
             pricePerUnit.Clear();
             pricePerUnit.SendKeys("7000");
             //finding  save button and then click
-            Thread.Sleep(3000);
+            WaitHelpers.waitClickableElement(driver, "XPath", "//*[@id='SaveButton']");
             driver.FindElement(By.XPath("//*[@id='SaveButton']")).Click();
             
             Console.WriteLine("Created Successfully");
@@ -102,7 +104,7 @@ namespace MainProject
                 
         internal void ValidateNewRecord(String code, String description)
         {
-            Thread.Sleep(3000);
+            WaitHelpers.waitClickableElement(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span");
             driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span")).Click();
             var Code = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
 
@@ -119,8 +121,8 @@ namespace MainProject
         }
 
         internal void EditNewRecord()
-        {      
-            Thread.Sleep(3000);
+        {
+            WaitHelpers.waitClickableElement(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span");
             driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span")).Click();
             driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]")).Click();
             Assert.That(driver.FindElement(By.XPath("//*[@id='container']/h2")).Text, Is.EqualTo("Time and Materials"));             
@@ -164,9 +166,9 @@ namespace MainProject
         {
             try
             {
-                Thread.Sleep(3000);
+                WaitHelpers.waitClickableElement(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span");
                 driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[4]/a[4]/span")).Click();
-                Thread.Sleep(3000);
+                WaitHelpers.waitClickableElement(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]");
                 driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]")).Click();
                 IAlert alert = driver.SwitchTo().Alert();
                 alert.Accept();
